@@ -1,0 +1,69 @@
+
+body{
+    text-align: center;
+
+}
+#container{
+
+    height: 500px;
+    width: 300px;
+   background-color: #ddd;
+   margin-left: auto;
+   margin-right: auto;
+ 
+   overflow: auto;
+   scroll-behavior: smooth;
+   
+}
+
+button {
+    background-color: #0000FF; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 40px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 12px;
+    margin-top: 7%;
+    margin-bottom: 3%;
+    opacity: 1;
+    
+  }
+
+  button:hover {
+    background-color: #ddd;
+  color: #0000FF;
+  }
+
+  #event{
+    display: flex;
+    flex-direction: row;
+    height: 50px;
+    width: 100;
+   background-color: rgb(255, 255, 255);
+   border-color: rgb(0, 0, 0);
+   margin: 8px;
+   border-style: solid;
+   border-radius: 12px;
+   
+  }
+
+  #eventname{
+    height: 100%;
+    width: 70%;
+    margin-top:4%;
+    font-size: large;
+  }
+
+  #eventtime{
+    height: 100%;
+    width: 30%;
+    text-align: center;
+    margin-top:4%;
+    font-size: large;
+
+  }
+

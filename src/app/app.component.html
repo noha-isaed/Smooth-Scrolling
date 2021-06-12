@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>   
+
+<body >
+  <button (click) = "NavigateEvents('event')">Play</button>
+
+<div id="container"  >  
+<div id = "event"   *ngFor = "let Event of Events " [attr.class] ="Event.index"  [ngStyle]="{'border-color':Event.index == counter ? 'red' : 'black' }"   > 
+  
+   <div id="eventname">{{Event.description.replace('event','')}}</div>
+  <div id="eventtime">{{Event.index}}</div>
+
+</div>
+
+    </div>
+
+    
+</body>
+</html>
