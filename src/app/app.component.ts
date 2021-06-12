@@ -23,13 +23,29 @@ export class AppComponent implements OnInit{
     {"index": 9,"type": 1,"description": "Visit new page event"},
     {"index": 10,"type": 2,"description": "Scroll event"},
     {"index": 11,"type": 2,"description": "Scroll event"},
-    {"index": 12,"type": 2,"description": "Click event"}
+    {"index": 12,"type": 0,"description": "Click event"},
+    {"index": 13,"type": 1,"description": "Visit new page event event"}
   ]
 
-  constructor(private scroller: ViewportScroller){}
+
 
   ngOnInit(): void {
 
+    for (let i = 0 ; i < this.Events.length ; i++){
+      let digit3 = i, digit2 = 0;
+     if(i > 5){
+       digit3 = Math.floor(this.Events[i].index % 6);
+       digit2 =  Math.floor(this.Events[i].index / 6);
+     }
+      this.Events[i].time = "0"+String(digit2)+":"+String(digit3)+"0";
+
+      if(this.Events[i].type == 0  ) {this.Events[i].icon = "fa fa-hand-pointer-o" }
+      else  if(this.Events[i].type == 1 ) {this.Events[i].icon = "fa fa-mouse-pointer" }
+      else  if(this.Events[i].type == 2 ) {this.Events[i].icon = "fa fa-angle-double-down" }
+      console.log(this.Events[i])
+    }
+
+    
   }
   public  counter:number = -1;
 

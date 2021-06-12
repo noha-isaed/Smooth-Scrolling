@@ -2,6 +2,11 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
 
 </head>   
 
@@ -9,10 +14,10 @@
   <button (click) = "NavigateEvents('event')">Play</button>
 
 <div id="container"  >  
-<div id = "event"   *ngFor = "let Event of Events " [attr.class] ="Event.index"  [ngStyle]="{'border-color':Event.index == counter ? 'red' : 'black' }"   > 
-  
-   <div id="eventname">{{Event.description.replace('event','')}}</div>
-  <div id="eventtime">{{Event.index}}</div>
+<div id = "event"   *ngFor = "let Event of Events"  [attr.class] ="Event.index"  [ngStyle]="{'border-color':Event.index == counter ? 'red' : 'black' }"   > 
+  <div id="eventicon" [attr.class] ="Event.icon"  [ngStyle]="{'color':Event.index == counter ? 'black' : '#A8A8A8' }"></div>  
+  <div id="eventname" [ngStyle]="{'color':Event.index == counter ? 'black' : '#A8A8A8' }">{{Event.description.replace('event','')}}</div>
+  <div id="eventtime" [ngStyle]="{'color':Event.index == counter ? 'black' : '#A8A8A8' }">{{Event.time}}</div>
 
 </div>
 
