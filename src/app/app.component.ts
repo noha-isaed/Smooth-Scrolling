@@ -46,12 +46,12 @@ export class AppComponent implements OnInit{
 
     
   }
-  public  counter:number = 0;
+  public  counter:number = -1;
   
-
+  
   NavigateEvents(anchor: string): void{
     let top = 0 ;
-
+    this.counter++;
         const interval = setInterval(() => {
         console.log(this.Events[this.counter].duration);
         this.counter++;
