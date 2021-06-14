@@ -15,8 +15,8 @@ export class AppComponent implements OnInit{
     {"index": 1,"type": 0, "duration": 3000, "description": "Click event"},
     {"index": 2,"type": 1, "duration": 500, "description": "Visit new page event"},
     {"index": 3,"type": 0, "duration": 700,"description": "Click event"},
-    {"index": 4,"type": 0, "duration": 4000, "description": "Click event"},
-    {"index": 5,"type": 0, "duration": 2000, "description": "Click event"},
+    {"index": 4,"type": 0, "duration": 2000, "description": "Click event"},
+    {"index": 5,"type": 0, "duration": 4000, "description": "Click event"},
     {"index": 6,"type": 2, "duration": 800, "description": "Scroll event"},
     {"index": 7,"type": 0, "duration": 1500, "description": "Click event"},
     {"index": 8,"type": 1, "duration": 500,  "description": "Visit new page event"},
@@ -51,30 +51,32 @@ export class AppComponent implements OnInit{
 
   NavigateEvents(anchor: string): void{
     
-       let top = 0 ;
-       this.counter++;
+      let top = 0 ;
+      this.counter++;
 
-      let interval1 = setInterval(() => {
-          
-              
-        if (this.counter == this.Events.length ) {
-          clearInterval(interval1);
+      let intervalAllEvents = setInterval(() => {
+                
+        if (this.counter == this.Events.length-1) {
+          clearInterval(intervalAllEvents);
         }
-        else{
-         setTimeout(() => {
+         let intervalEachEvent = setTimeout(() => {
             console.log(this.counter);
-            console.log(this.Events[this.counter].duration);
-
+            if (this.counter == this.Events.length-1) {
+              clearTimeout(intervalEachEvent);
+            }
             if(this.counter > 6){
               let theDiv: HTMLElement = document.getElementById("container")   as HTMLElement;  
               top++;
               theDiv.scrollTop = 80*top;
             }
-            this.counter++;
+            this.counter++; 
+           
+          }, this.Events[ this.counter].duration); 
           
-          }, this.Events[this.counter].duration);  
-        }
+        
       }, 1000); 
   }
 
   }
+
+  
