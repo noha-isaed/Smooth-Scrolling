@@ -1,72 +1,115 @@
-import { ViewportScroller } from '@angular/common';
-import { Component ,ElementRef,OnInit, ViewChild ,AfterViewChecked} from '@angular/core';
+import { Component ,OnInit} from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { getLocaleDateFormat } from '@angular/common';
+import { cleanData } from 'cypress/types/jquery';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
 export class AppComponent implements OnInit{
 
   title = 'SmoothScrolling';
+  Data: any = [];
+  public Events : Array<any> = [];
+  public day : Array<number> = [];
+  public month : Array<number> = [];
+  public year : Array<number> = [];
 
-  public Events: Array<any> = [
-    {"index": 0,"type": 0, "description": "Click event"},
-    {"index": 1,"type": 0,"description": "Click event"},
-    {"index": 2,"type": 1,"description": "Visit new page event"},
-    {"index": 3,"type": 0,"description": "Click event"},
-    {"index": 4,"type": 0,"description": "Click event"},
-    {"index": 5,"type": 0,"description": "Click event"},
-    {"index": 6,"type": 2,"description": "Scroll event"},
-    {"index": 7,"type": 0,"description": "Click event"},
-    {"index": 8,"type": 1,"description": "Visit new page event"},
-    {"index": 9,"type": 1,"description": "Visit new page event"},
-    {"index": 10,"type": 2,"description": "Scroll event"},
-    {"index": 11,"type": 2,"description": "Scroll event"},
-    {"index": 12,"type": 0,"description": "Click event"},
-    {"index": 13,"type": 1,"description": "Visit new page event event"}
-  ]
+  localUrl = 'assets/session-events.json';
 
+  public  counter:number = 0;
 
+  constructor(private httpClient: HttpClient) { }
 
   ngOnInit(): void {
+    let index = 0;
+    this.httpClient.get(this.localUrl).subscribe(data =>{
+      this.Data = data ; 
 
-    for (let i = 0 ; i < this.Events.length ; i++){
-      let digit3 = i, digit2 = 0;
-     if(i > 5){
-       digit3 = Math.floor(this.Events[i].index % 6);
-       digit2 =  Math.floor(this.Events[i].index / 6);
-     }
-      this.Events[i].time = "0"+String(digit2)+":"+String(digit3)+"0";
+      for(let i = 0 ; i < this.Data.length-1 ; i++){
+             //  // add duration to each event 
+             var time1 = new Date(this.Data[i].timestamp * 1000).getTime();
+             var time2 = new Date(this.Data[i + 1].timestamp * 1000).getTime();
 
-      if(this.Events[i].type == 0  ) {this.Events[i].icon = "fa fa-hand-pointer-o" }
-      else  if(this.Events[i].type == 1 ) {this.Events[i].icon = "fa fa-mouse-pointer" }
-      else  if(this.Events[i].type == 2 ) {this.Events[i].icon = "fa fa-angle-double-down" }
-      console.log(this.Events[i])
-    }
+             var dif = time2 - time1;
 
-    
+             var Seconds_from_T1_to_T2 = dif / 1000;
+             var Seconds_Between_Dates = Math.abs(Seconds_from_T1_to_T2);
+             this.Data[i].duration = Seconds_Between_Dates;
+
+           //  convert timestamp to hours:minute:second
+           var date = new Date(this.Data[i].timestamp * 1000);
+           var hour = date.getHours();
+           var minute = ("0" + date.getMinutes()).substr(-2);
+           var second = ("0" + date.getSeconds()).substr(-2);
+           this.Data[i].timestamp =   hour + ':' + minute+ ':' + second;
+      }
+
+      for(let i = 0 ; i < this.Data.length ; i++){
+          if(this.Data[i].type == 4 || (this.Data[i].type === 3 && this.Data[i].data.source == 2 && this.Data[i].data.type == 2) ) {
+            this.Events.push(this.Data[i]);
+         }
+      }    
+
+      console.log(this.Data)
+      for(let i = 0 ; i < this.Events.length ; i++){
+
+ 
+
+           // add Icons to each event
+            if(this.Events[i].type == 3 ) {this.Events[i].icon = "fa fa-hand-pointer-o" }
+            else  if(this.Events[i].type == 4 ) {this.Events[i].icon = "fa fa-mouse-pointer" }
+
+            // add description to each event
+            if(this.Events[i].type == 3 ) {this.Events[i].description = "Click" }
+            else  if(this.Events[i].type == 4 ) {this.Events[i].description = "Visit New Page" }
+
+            // add idex to each event 
+            this.Events[i].index =  i ; 
+      }
+
+    })
+
   }
-  public  counter:number = -1;
 
-  NavigateEvents(anchor: string): void{
-    let top = 0 ;
-    const interval = setInterval(() => {
+
+  NavigateEvents(anchor: string): void {
+   
+
+      let top = 0 ;
       this.counter++;
-     // console.log(this.counter);
-      if (this.counter >= this.Events.length  ) {
-        clearInterval(interval);
-      }
-      else{
-        if( this.counter > 6){
-          let theDiv: HTMLElement = document.getElementById("container")   as HTMLElement;  
-          top++;
-          theDiv.scrollTop = 60*top;
-        }    
-      }
-     
-    }, 1000);
+
+      let intervalAllEvents = setInterval(() => {
+                
+        if (this.counter == this.Events.length-1) {
+          clearInterval(intervalAllEvents);
+        }
+         let intervalEachEvent = setTimeout(() => {
+            console.log(this.counter);
+            if (this.counter == this.Events.length-1) {
+              clearTimeout(intervalEachEvent);
+            }
+            if(this.counter >= 1){
+              let theDiv: HTMLElement = document.getElementById("container")   as HTMLElement;  
+              top++;
+              theDiv.scrollTop = 80*top;
+              this.counter++; 
+            }
+           
+          }, this.Events[this.counter].duration); 
+          
+        
+      }, 1000); 
+   }
 
   }
-  
-}
+
+
+
+   
+
+
+   

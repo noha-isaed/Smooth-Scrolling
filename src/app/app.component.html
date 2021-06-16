@@ -16,10 +16,12 @@
 <div id="container"  >  
 <div id = "event"   *ngFor = "let Event of Events"  [attr.class] ="Event.index"  [ngStyle]="{'border-color':Event.index == counter ? 'red' : 'black' }"   > 
   <div id="eventicon" [attr.class] ="Event.icon"  [ngStyle]="{'color':Event.index == counter ? 'black' : '#A8A8A8' }"></div>  
-  <div id="eventname" [ngStyle]="{'color':Event.index == counter ? 'black' : '#A8A8A8' }">{{Event.description.replace('event','')}}</div>
-  <div id="eventtime" [ngStyle]="{'color':Event.index == counter ? 'black' : '#A8A8A8' }">{{Event.time}}</div>
+  <div id="eventname" [ngStyle]="{'color':Event.index == counter ? 'black' : '#A8A8A8' }">{{Event.description}}</div>
+  <div id="eventtime" [ngStyle]="{'color':Event.index == counter ? 'black' : '#A8A8A8' }">{{Event.timestamp}}</div> 
+  <div id="eventduration" [ngStyle]="{'color':Event.index == counter ? 'black' : '#A8A8A8' }">{{Event.duration}}</div> 
 
-</div>
+
+ </div>
 
     </div>
 
