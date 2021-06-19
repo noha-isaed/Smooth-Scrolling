@@ -1,0 +1,17 @@
+
+<html>
+    <head>
+
+</head>
+<body>
+
+<button (click) = "displayCommentArea()">Add Comment</button>
+<form #myForm="ngForm" (ngSubmit)="onSubmit(myForm)" novalidate>
+<div id= "comment">
+    <textarea name="teatArea" ngModel rows="15" cols="30"  ></textarea>
+    <button  type="submit" >Add</button>
+    <div id=timer></div>
+</div>
+</form>
+</body>
+</html>

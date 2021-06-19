@@ -1,0 +1,104 @@
+
+body{
+    text-align: center;
+
+}
+
+#container{
+
+  height: 150px;
+  width: 900px;
+   background-color: 	#E8E8E8;
+   margin-left: auto;
+   margin-right: auto;
+   overflow: auto;
+   scroll-behavior: smooth;
+   
+}
+
+
+button {
+    background-color: #0000FF; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 40px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 12px;
+    margin-top: 7%;
+    margin-bottom: 3%;
+    opacity: 1;
+    margin-right: 3%;
+    
+  }
+
+
+
+  button:hover {
+    background-color: #ddd;
+  color: #0000FF;
+  }
+
+  #event{
+    display: flex;
+    flex-direction: row;
+    height: 50px;
+    width: 200;
+   background-color: rgb(255, 255, 255);
+   border-color: rgb(0, 0, 0);
+   margin: 8px;
+   border-style: solid;
+   border-radius: 12px;
+   
+  }
+
+  #eventname{
+    height: 65%;
+    width: 25%;
+    margin-top:2%;
+    font-size: 25px;
+    left: auto;
+    text-align: left;
+    
+  }
+
+  #eventtime{
+    height: 65%;
+    width: 25%;
+    text-align: center;
+    margin-top:2%;
+    font-size: 25px;
+
+  }
+
+  #eventduration{
+    height: 65%;
+    width: 25%;
+    text-align: center;
+    margin-top:2%;
+    font-size: 25px;
+
+  }
+  #eventicon{
+    height: 65%;
+    width: 25%;
+    text-align: center;
+    margin-top:2%;
+    font-size: 25px;
+  }
+
+  #eventcomment{
+    height: 65%;
+    width: 25%;
+    text-align: center;
+    margin-top:2%;
+    font-size: 25px;
+  }
+
+  .myDIV:hover + .hide {
+    display: block;
+    color: red;
+  }
